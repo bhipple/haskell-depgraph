@@ -1,2 +1,4 @@
+import DependencyGraph
+
 main :: IO ()
-main = putStrLn "Test suite not yet implemented"
+main = putStrLn "Graph from simple.txt:" >> graphFromFile "test/simple.txt"
