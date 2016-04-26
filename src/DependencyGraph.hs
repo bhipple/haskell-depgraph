@@ -45,14 +45,14 @@ generateGraph sources targets edges =
         }
     }
 
-printGraph :: DotGraph T.Text -> IO ()
-printGraph = putStrLn . T.unpack . renderDot . toDot
+printDot :: DotGraph T.Text -> String
+printDot = T.unpack . renderDot . toDot
 
-graphFromFile :: String -> IO ()
+graphFromFile :: String -> IO String
 graphFromFile fname = do
     contents <- readFile fname
     let pairs = map ((\(x:xs) -> (T.pack x, T.pack . head $ xs)) . words) . lines $ contents
     let sources = map (\(s,t) -> DotNode s sourceFmt) pairs
     let targets = map (\(s,t) -> DotNode t targetFmt) pairs
     let edges = map (\(x,y) -> DotEdge x y []) pairs
-    printGraph $ generateGraph sources targets edges
+    return . printDot $ generateGraph sources targets edges

@@ -1,1 +1,3 @@
 .stack-work
+*.txt
+!test/simple.txt
